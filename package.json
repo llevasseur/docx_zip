@@ -1,0 +1,28 @@
+{
+  "name": "docx_zip",
+  "version": "0.0.1",
+  "description": "NodeJS module to unzip and zip a .docx file. Once file is unzipped, pass xml files to xml_editor. Second step to a ML algorithm to edit a .docx file.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/llevasseur/docx_zip.git"
+  },
+  "keywords": [
+    "docx",
+    "xml",
+    "zip",
+    "unzip"
+  ],
+  "author": "Leevon Levasseur",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/llevasseur/docx_zip/issues"
+  },
+  "homepage": "https://github.com/llevasseur/docx_zip#readme",
+  "dependencies": {
+    "xml_editor": "^0.0.1"
+  }
+}
