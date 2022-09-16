@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/llevasseur/docx_zip#readme",
   "dependencies": {
+    "adm-zip": "^0.5.9",
     "xml_editor": "^0.0.1"
   }
 }
