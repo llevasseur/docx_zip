@@ -23,67 +23,74 @@ const relevantEntries = {
     "settings.xml": null
 }
 
-const zip = new admZip();
-module.exports = function(/**String */ docxStr, /**object */ options) {
-    /**
-     * Unzips a docx file to a directory called unzip.
-     * @param docxStr docx file full path of entry
-     * @options 
-     */
-    /**
-     * Access contents, xml files
-     * Save xml files to variables
-     * Update xml files through xml_editor
-     * Zip updated xml files to create new docx
-     * Save path to new docx
-     */
+/**
+ * Unzips a docx file to a directory called unzip.
+ * @param {String} docxStr docx file full path of entry
+ * @options 
+ */
+/**
+ * Access contents, xml files
+ * Save xml files to variables
+ * Update xml files through xml_editor
+ * Zip updated xml files to create new docx
+ * Save path to new docx
+ */
 
+module.exports = function(/**String */ docxStr, /**object */ options) {
+    let inBuffer = null;
     // create object based default options, allowing them to be overwritten
     const opts = Object.assign(Object.create(null), defaultOptions);
 
     // test docxStr
-    try {
-        fs.existsSync(docxStr)
-    } catch (err) {
-        console.error(err);
-        return
-    }
+    if (docxStr && "String" === typeof docxStr) {
+        try {
+            fs.existsSync(docxStr);
+            inBuffer = docxStr;
+        } catch (err) {
+            console.error(err);
+            return
+        }
+    } else {console.log("docx is not passed in");}
+    
     // assign options
     const _zip = new admZip(docxStr);
 
     /**
-     * 
-     * @param entryID String of xml entry file (ei comments.xml, not full path)
-     * @returns Buffer or Null in case of error
-     */
-    function getEntry(/**String */ entryID) {
-        if (entryID) {
-            item = _zip.getEntries();
-        }
-        return null
-    }
-    /**
      * Save all entries of the docx to a list, save ones of importance
      */
     function getEntries() {
-        for (let i = 0; i < relevantEntries.length(); i++) {
-            console.log(relevantEntries[i]);
+        for (let xml of Object.entries(relevantEntries)) {
+            relevantEntries[xml] = _zip.getEntry(xml);
         }
-        return null;
+        return relevantEntries;
     }
 
     return {
         /**
-         * @param outputDir Full path to extract directory
-         * @param overwrite If the file already exists at the target path, the file will be overwritten if this is true
+         * 
+         * @param {String} extractDir Full path to the docx file
+         * @param {String} outputFile Full path to the file to unzip the file to
+         */
+        createZipArchive: function(/**String */ extractDir, /**String */ outputFile) {
+            _zip.addLocalFolder(extractDir);
+            _zip.writeZip(outputFile);
+        },
+        /**
+         * @param {String} outputDir Full path to extract directory
+         * @param {bool} overwrite If the file already exists at the target path, the file will be overwritten if this is true
          *                  Default is False
          */
         extractArchive: function(/**String */ outputDir, /**Bool */ overwrite) {
             overwrite = get_Bool(overwrite, false);
             _zip.extractAllTo(outputDir, overwrite);
         },
-        findFileComponent: function(/**String */ fileStr, /**String */ fileID) {
-
+        /**
+         * 
+         * @param {String} fileStr  
+         * @returns 
+         */
+        findFileComponents: function(/**String */ fileStr, /**String */ fileID) {
+            return getEntries();
         },
         /**
          * 
