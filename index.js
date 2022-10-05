@@ -59,7 +59,7 @@ module.exports = function(/**String */ docxStr, /**object */ options) {
      * Save all entries of the docx to a list, save ones of importance
      */
     function getEntries() {
-        for (let xml of Object.entries(relevantEntries)) {
+        for (let [xml, value] of Object.entries(relevantEntries)) {
             console.log("xml:", xml);
             let entry = _zip.getEntry(xml);
             console.log("entry:", entry);
