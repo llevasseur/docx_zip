@@ -60,10 +60,8 @@ module.exports = function(/**String */ docxStr, /**object */ options) {
      */
     function getEntries() {
         for (let [xml, value] of Object.entries(relevantEntries)) {
-            console.log("xml:", xml);
             let entry = _zip.getEntry(xml);
-            console.log("entry:", entry);
-            relevantEntries[xml] = entry;
+            relevantEntries[xml] = entry.toJSON();
         }
         return relevantEntries;
     }
