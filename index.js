@@ -42,7 +42,7 @@ module.exports = function(/**String */ docxStr, /**object */ options) {
     const opts = Object.assign(Object.create(null), defaultOptions);
 
     // test docxStr
-    console.log("type of {docxStr} is {typeof docxStr}");
+    console.log("type of "+docxStr+" is "+ typeof docxStr);
     if (docxStr && "string" === typeof docxStr) {
         try {
             fs.existsSync(docxStr);
