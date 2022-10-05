@@ -13,14 +13,14 @@ const defaultOptions = {
 
 const relevantEntries = {
     // all items are xml files, created when docx unzipped, that need altering
-    "app.xml": null,
-    "core.xml": null,
-    "comments.xml": null,
-    "commentsExtended.xml": null,
-    "commentsExtensible.xml": null,
-    "commentsIds.xml": null,
-    "document.xml": null,
-    "settings.xml": null
+    "docProps/app.xml": null,
+    "docProps/core.xml": null,
+    "word/comments.xml": null,
+    "word/commentsExtended.xml": null,
+    "word/commentsExtensible.xml": null,
+    "word/commentsIds.xml": null,
+    "word/document.xml": null,
+    "word/settings.xml": null
 }
 
 /**
@@ -42,7 +42,6 @@ module.exports = function(/**String */ docxStr, /**object */ options) {
     const opts = Object.assign(Object.create(null), defaultOptions);
 
     // test docxStr
-    console.log("type of "+docxStr+" is "+ typeof docxStr);
     if (docxStr && "string" === typeof docxStr) {
         try {
             fs.existsSync(docxStr);
@@ -51,7 +50,7 @@ module.exports = function(/**String */ docxStr, /**object */ options) {
             console.error(err);
             return
         }
-    } else {console.log("docx is not passed in");}
+    } else {console.error("docx is not passed in to docx_zip");}
     
     // assign options
     const _zip = new admZip(docxStr);
@@ -61,7 +60,10 @@ module.exports = function(/**String */ docxStr, /**object */ options) {
      */
     function getEntries() {
         for (let xml of Object.entries(relevantEntries)) {
-            relevantEntries[xml] = _zip.getEntry(xml);
+            console.log("xml:", xml);
+            let entry = _zip.getEntry(xml);
+            console.log("entry:", entry);
+            relevantEntries[xml] = entry;
         }
         return relevantEntries;
     }
