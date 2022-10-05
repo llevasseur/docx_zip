@@ -1,6 +1,6 @@
 {
   "name": "docx_zip",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "description": "NodeJS module to unzip and zip a .docx file. Once file is unzipped, pass xml files to xml_editor. Second step to a ML algorithm to edit a .docx file.",
   "main": "index.js",
   "scripts": {

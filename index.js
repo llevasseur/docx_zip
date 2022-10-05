@@ -61,7 +61,7 @@ module.exports = function(/**String */ docxStr, /**object */ options) {
     function getEntries() {
         for (let [xml, value] of Object.entries(relevantEntries)) {
             let entry = _zip.getEntry(xml);
-            relevantEntries[xml] = entry.toJSON();
+            relevantEntries[xml] = entry.toJSON;
         }
         return relevantEntries;
     }
